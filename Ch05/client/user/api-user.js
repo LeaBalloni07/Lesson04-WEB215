@@ -1,13 +1,13 @@
 const create = async (user) => {
   try {
-      let response = await fetch('/api/users/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      })
+    let response = await fetch('/api/users/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
     return await response.json()
   } catch(err) {
     console.log(err)
@@ -18,7 +18,7 @@ const list = async (signal) => {
   try {
     let response = await fetch('/api/users/', {
       method: 'GET',
-      signal: signal,
+      signal: signal
     })
     return await response.json()
   } catch(err) {
@@ -30,13 +30,12 @@ const read = async (params, credentials, signal) => {
   try {
     let response = await fetch('/api/users/' + params.userId, {
       method: 'GET',
-      signal: signal,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + credentials.t
       }
-    })
+  })
     return await response.json()
   } catch(err) {
     console.log(err)
@@ -82,12 +81,12 @@ const follow = async (params, credentials, followId) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorrization': 'Bearer ' + credentials.t
+        'Authorization': 'Bearer ' + credentials.t
       },
-      body:JSON.stringify({userId:params.userId, followId: followId})
+      body: JSON.stringify({userId:params.userId, followId: followId})
     })
     return await response.json()
-  }catch(err) {
+  } catch(err) {
     console.log(err)
   }
 }
@@ -99,12 +98,29 @@ const unfollow = async (params, credentials, unfollowId) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorrization': 'Bearer ' + credentials.t
+        'Authorization': 'Bearer ' + credentials.t
       },
-      body:JSON.stringify({userId:params.userId, unfollowId: unfollowId})
+      body: JSON.stringify({userId:params.userId, unfollowId: unfollowId})
     })
     return await response.json()
-  }catch(err) {
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+const findPeople = async (params, credentials, signal) => {
+  try {
+    let response = await fetch('/api/users/findpeople/' + params.userId, {
+      method: 'GET',
+      signal: signal,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      }
+    })    
+    return await response.json()
+  } catch(err) {
     console.log(err)
   }
 }
@@ -116,5 +132,6 @@ export {
   update,
   remove,
   follow,
-  unfollow
+  unfollow,
+  findPeople
 }

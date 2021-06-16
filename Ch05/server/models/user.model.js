@@ -1,18 +1,10 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 const UserSchema = new mongoose.Schema({
-  photo: {
-    data: Buffer,
-    contentType: String
-  },
   name: {
     type: String,
     trim: true,
     required: 'Name is required'
-  },
-  about:  {
-    type: String,
-    trim: true
   },
   email: {
     type: String,
@@ -31,7 +23,14 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-
+  about: {
+    type: String,
+    trim: true
+  },
+  photo: {
+    data: Buffer,
+    contentType: String
+  },
   following: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   followers: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
 })
